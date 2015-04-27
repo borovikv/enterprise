@@ -19,13 +19,13 @@ import java.util.TreeSet;
  */
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name = DB.SCHEMA + "DB_Node")
+@Table(name = DB.SCHEMA + DB.PRODUCT + "node")
 public class Node extends TitleContainer<NodeTitle> implements Serializable{
     private List<Node> children = new ArrayList<>();
     private Set<Enterprise> enterprises = new TreeSet<>();
 
     @ManyToMany
-    @JoinTable(name = DB.SCHEMA + "DB_Arc", joinColumns = @JoinColumn(name = "tail_id"), inverseJoinColumns = @JoinColumn(name = "head_id"))
+    @JoinTable(name = DB.SCHEMA + DB.PRODUCT + "arcs", joinColumns = @JoinColumn(name = "from_node_id"), inverseJoinColumns = @JoinColumn(name = "to_node_id"))
     public List<Node> getChildren() {
         return children;
     }
@@ -35,7 +35,7 @@ public class Node extends TitleContainer<NodeTitle> implements Serializable{
     }
 
     @ManyToMany
-    @JoinTable(name = DB.SCHEMA + "DB_Node_Enterprise", joinColumns = @JoinColumn(name = "node_id"), inverseJoinColumns = @JoinColumn(name = "enterprise_id"))
+    @JoinTable(name = DB.SCHEMA + DB.ENTERPRISE + "Node_Enterprise", joinColumns = @JoinColumn(name = "node_id"), inverseJoinColumns = @JoinColumn(name = "enterprise_id"))
     public Set<Enterprise> getEnterprises() {
         return enterprises;
     }
@@ -57,5 +57,11 @@ public class Node extends TitleContainer<NodeTitle> implements Serializable{
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    @JoinColumn(name = "node_id")
+    public List<NodeTitle> getTitles() {
+        return titles;
     }
 }

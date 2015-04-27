@@ -1,7 +1,7 @@
 package md.varoinform.model.entities.enterprise;
 
-import md.varoinform.model.entities.product.Good;
-import md.varoinform.model.entities.product.GoodType;
+import md.varoinform.model.entities.product.Product;
+import md.varoinform.model.entities.product.ProductType;
 import md.varoinform.model.utils.DB;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.ContainedIn;
@@ -21,8 +21,8 @@ import javax.persistence.*;
 public class GoodEnterprise {
     private Long id;
     private Enterprise enterprise;
-    private Good good;
-    private GoodType goodType;
+    private Product product;
+    private ProductType productType;
 
     public GoodEnterprise() {
     }
@@ -55,27 +55,27 @@ public class GoodEnterprise {
     @ManyToOne
     @JoinColumn(name = "good_id")
     @IndexedEmbedded(includePaths = "titles.title")
-    public Good getGood() {
-        return good;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setGood(Good good) {
-        this.good = good;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @ManyToOne
     @JoinColumn(name = "type_id")
-    public GoodType getGoodType() {
-        return goodType;
+    public ProductType getProductType() {
+        return productType;
     }
 
-    public void setGoodType(GoodType goodType) {
-        this.goodType = goodType;
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     @Override
     public int hashCode() {
-        return good.getTitles().hashCode();
+        return product.getTitles().hashCode();
     }
 
     @Override
@@ -83,8 +83,8 @@ public class GoodEnterprise {
         return "GoodEnterprise{" +
                 "id=" + id +
                 ", enterprise=" + enterprise.getId() +
-                ", good=" + good +
-                ", type=" + goodType +
+                ", product=" + product +
+                ", type=" + productType +
                 '}';
     }
 }

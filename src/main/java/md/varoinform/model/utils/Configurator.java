@@ -22,20 +22,23 @@ import java.nio.file.Paths;
 @SuppressWarnings("unused")
 public class Configurator {
     private static final Class[] entities = {
-            Arc.class, Node.class, NodeTitle.class,
-            Good.class, GoodTitle.class,  GoodEnterprise.class, GoodType.class, GoodTypeTitle.class,
+            Arc.class, Node.class, NodeTitle.class, Product.class, ProductTitle.class,  ProductType.class, ProductNode.class,
+
             Brand.class,
             EnterpriseType.class, EnterpriseTypeTitle.class,
+            Language.class,
+            Position.class, PositionTitle.class,
+            Phone.class,
+
+            GoodEnterprise.class,
             Contact.class,
             ContactPerson.class,
             Email.class,
             Enterprise.class, EnterpriseTitle.class,
-            Language.class,
-            Phone.class,
-            Position.class, PositionTitle.class,
+            Url.class,
+
             Tag.class, TagEnterprise.class,
             Database.class,
-            Url.class
     };
     private final String pathToDb;
     private final String password;

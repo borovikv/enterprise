@@ -13,8 +13,15 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = DB.SCHEMA + "DB_NodeTitle")
+@Table(name = DB.SCHEMA + DB.PRODUCT + "NodeTitle")
 public class NodeTitle extends Title<Node> {
     public NodeTitle() {
+    }
+
+    @Override
+    @ManyToOne
+    @JoinColumn(name = "node_id")
+    public Node getContainer() {
+        return container;
     }
 }
