@@ -16,15 +16,16 @@ import javax.persistence.*;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name = DB.SCHEMA + "DB_url")
-public class Url {
+@Table(name = DB.SCHEMA + DB.ENTERPRISE + "www")
+public class WWW {
     private Long id;
     private String url;
+    private Enterprise enterprise;
 
-    public Url() {
+    public WWW() {
     }
 
-    public Url(String url) {
+    public WWW(String url) {
         setUrl(url);
     }
 
@@ -49,6 +50,16 @@ public class Url {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id")
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
     }
 
     @Override

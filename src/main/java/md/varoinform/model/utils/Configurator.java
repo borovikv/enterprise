@@ -30,12 +30,12 @@ public class Configurator {
             Position.class, PositionTitle.class,
             Phone.class,
 
-            GoodEnterprise.class,
+            EnterpriseProduct.class,
             Contact.class,
-            ContactPerson.class,
+            Person.class,
             Email.class,
             Enterprise.class, EnterpriseTitle.class,
-            Url.class,
+            WWW.class,
 
             Tag.class, TagEnterprise.class,
             Database.class,

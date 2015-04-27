@@ -1,6 +1,7 @@
 package md.varoinform.model.entities.enterprise;
 
-import md.varoinform.model.entities.base.Person;
+import md.varoinform.model.entities.base.FirstName;
+import md.varoinform.model.entities.base.LastName;
 import md.varoinform.model.entities.base.Phone;
 import md.varoinform.model.entities.base.Position;
 import md.varoinform.model.utils.DB;
@@ -19,11 +20,12 @@ import java.util.List;
  */
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name = DB.SCHEMA + "DB_contactperson")
-public class ContactPerson {
+@Table(name = DB.SCHEMA + DB.ENTERPRISE + "person")
+public class Person {
     private Long id;
     private Enterprise enterprise;
-    private Person person;
+    private FirstName firstName;
+    private LastName lastName;
     private Position position;
     private List<Phone> phones = new ArrayList<>();
 
@@ -51,14 +53,25 @@ public class ContactPerson {
     }
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
+    @JoinColumn(name = "first_name_id")
     @IndexedEmbedded
-    public Person getPerson() {
-        return person;
+    public FirstName getFirstName() {
+        return firstName;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setFirstName(FirstName firstName) {
+        this.firstName = firstName;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "last_name_id")
+    @IndexedEmbedded
+    public LastName getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(LastName lastName) {
+        this.lastName = lastName;
     }
 
     @ManyToOne
@@ -71,8 +84,8 @@ public class ContactPerson {
         this.position = position;
     }
 
-    @OneToMany
-    @JoinTable(name = DB.SCHEMA + "DB_contactperson_phone", joinColumns = @JoinColumn(name = "contactperson_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    @ManyToOne
+    @JoinColumn(name = "phone_id")
     @IndexedEmbedded
     public List<Phone> getPhones() {
         return phones;

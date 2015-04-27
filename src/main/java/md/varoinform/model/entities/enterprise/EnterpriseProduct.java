@@ -8,6 +8,7 @@ import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,17 +18,15 @@ import javax.persistence.*;
  */
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name = DB.SCHEMA + "DB_Good_Enterprise")
-public class GoodEnterprise {
+@Table(name = DB.SCHEMA + DB.ENTERPRISE + "product")
+public class EnterpriseProduct {
     private Long id;
     private Enterprise enterprise;
     private Product product;
-    private ProductType productType;
+    private List<ProductType> productTypes;
 
-    public GoodEnterprise() {
+    public EnterpriseProduct() {
     }
-
-
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -63,14 +62,14 @@ public class GoodEnterprise {
         this.product = product;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    public ProductType getProductType() {
-        return productType;
+    @ManyToMany
+    @JoinTable(name = DB.SCHEMA + DB.ENTERPRISE + "product_type", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
+    public List<ProductType> getProductType() {
+        return productTypes;
     }
 
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
+    public void setProductType(List<ProductType> productTypes) {
+        this.productTypes = productTypes;
     }
 
     @Override
@@ -80,11 +79,11 @@ public class GoodEnterprise {
 
     @Override
     public String toString() {
-        return "GoodEnterprise{" +
+        return "EnterpriseProduct{" +
                 "id=" + id +
                 ", enterprise=" + enterprise.getId() +
                 ", product=" + product +
-                ", type=" + productType +
+                ", type=" + productTypes +
                 '}';
     }
 }

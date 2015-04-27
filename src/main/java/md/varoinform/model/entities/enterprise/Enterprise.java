@@ -1,11 +1,11 @@
 package md.varoinform.model.entities.enterprise;
 
-import md.varoinform.model.entities.base.TitleContainer;
 import md.varoinform.model.entities.base.Brand;
 import md.varoinform.model.entities.base.EnterpriseType;
 import md.varoinform.model.utils.DB;
 import md.varoinform.model.utils.EnterpriseComparator;
 import org.apache.solr.analysis.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Parameter;
 
@@ -56,19 +56,35 @@ import java.util.*;
                 })
         })
 @Table(name = DB.SCHEMA + "DB_enterprise")
-public class Enterprise extends TitleContainer<EnterpriseTitle> implements Serializable, Comparable<Enterprise> {
+public class Enterprise implements Serializable, Comparable<Enterprise> {
+    private Long id;
+    // Todo:
+    private String status;
     private String idno;
-    private EnterpriseType enterpriseType;
-    private Integer creation;
-    private Boolean foreignCapital;
-    private Integer workplaces;
-    private String logo;
-    private Date checkDate;
+    private Integer creationYear;
+    private Integer numberOfJobs;
     private Date lastChange;
+    private EnterpriseType enterpriseType;
+    // todo:
+    private Boolean tva;
+
     private List<Contact> contacts = new ArrayList<>();
-    private List<ContactPerson> contactPersons = new ArrayList<>();
+    private List<Person> persons = new ArrayList<>();
     private List<Brand> brands = new ArrayList<>();
-    private Set<GoodEnterprise> goods = new HashSet<>();
+    private Set<EnterpriseProduct> goods = new HashSet<>();
+    private List<EnterpriseTitle> titles = new ArrayList<>();
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Column(name = "idno")
     @Field(analyze = Analyze.NO)
@@ -91,49 +107,23 @@ public class Enterprise extends TitleContainer<EnterpriseTitle> implements Seria
         this.enterpriseType = enterpriseType;
     }
 
-    @Column(name = "creation")
-    public Integer getCreation() {
-        return creation;
+    @Column(name = "creation_year")
+    public Integer getCreationYear() {
+        return creationYear;
     }
 
-    public void setCreation(Integer creation) {
-        this.creation = creation;
+    public void setCreationYear(Integer creationYear) {
+        this.creationYear = creationYear;
     }
 
-    @Column(name = "foreing_capital")
-    public Boolean getForeignCapital() {
-        return foreignCapital;
+
+    @Column(name = "number_of_jobs")
+    public Integer getNumberOfJobs() {
+        return numberOfJobs;
     }
 
-    public void setForeignCapital(Boolean foreignCapital) {
-        this.foreignCapital = foreignCapital;
-    }
-
-    @Column(name = "workplaces")
-    public Integer getWorkplaces() {
-        return workplaces;
-    }
-
-    public void setWorkplaces(Integer workplaces) {
-        this.workplaces = workplaces;
-    }
-
-    @Column(name = "logo")
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
-    }
-
-    @Column(name = "check_date")
-    public Date getCheckDate() {
-        return checkDate;
-    }
-
-    public void setCheckDate(Date checkDate) {
-        this.checkDate = checkDate;
+    public void setNumberOfJobs(Integer numberOfJobs) {
+        this.numberOfJobs = numberOfJobs;
     }
 
     @Column(name = "last_change")
@@ -162,12 +152,12 @@ public class Enterprise extends TitleContainer<EnterpriseTitle> implements Seria
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "enterprise_id")
     @IndexedEmbedded(includePaths = {"person.titles.title", "phones.phone"})
-    public List<ContactPerson> getContactPersons() {
-        return contactPersons;
+    public List<Person> getPersons() {
+        return persons;
     }
 
-    public void setContactPersons(List<ContactPerson> contactPersons) {
-        this.contactPersons = contactPersons;
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 
     @ManyToMany
@@ -183,19 +173,30 @@ public class Enterprise extends TitleContainer<EnterpriseTitle> implements Seria
 
     @OneToMany
     @JoinColumn(name = "enterprise_id")
-    @IndexedEmbedded(includePaths = {"good.titles.title"})
-    public Set<GoodEnterprise> getGoods() {
+    @IndexedEmbedded(includePaths = {"product.titles.title"})
+    public Set<EnterpriseProduct> getGoods() {
         return goods;
     }
 
-    public void setGoods(Set<GoodEnterprise> goods) {
+    public void setGoods(Set<EnterpriseProduct> goods) {
         this.goods = goods;
+    }
+
+    @OneToMany
+    @JoinColumn(name = "enterprise_id")
+    @IndexedEmbedded(includePaths = {"title", "appendix.titles.title"})
+    public List<EnterpriseTitle> getTitles() {
+        return titles;
+    }
+
+    public void setTitles(List<EnterpriseTitle> titles) {
+        this.titles = titles;
     }
 
     @Override
     public String toString() {
         return "Enterprise{" +
-                "title =" + getTitles() +
+                "title =" + titles +
 
                 '}';
     }

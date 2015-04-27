@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = DB.SCHEMA + "DB_language")
+@Table(name = DB.SCHEMA + DB.BASE + "language")
 public class Language {
     private Long id;
     private String title;

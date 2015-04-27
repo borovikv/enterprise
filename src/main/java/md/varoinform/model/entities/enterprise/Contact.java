@@ -1,14 +1,13 @@
 package md.varoinform.model.entities.enterprise;
 
-import md.varoinform.model.entities.address.Region;
-import md.varoinform.model.entities.address.Sector;
-import md.varoinform.model.entities.address.Street;
-import md.varoinform.model.entities.address.Town;
+import md.varoinform.model.entities.base.Department;
 import md.varoinform.model.entities.base.Phone;
+import md.varoinform.model.entities.base.Position;
 import md.varoinform.model.utils.DB;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
-import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,21 +21,14 @@ import java.util.List;
  */
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name = DB.SCHEMA + "DB_contact")
+@Table(name = DB.SCHEMA + DB.ENTERPRISE + "contact")
 public class Contact {
     private Long id;
     private Enterprise enterprise;
-    private String postalCode;
-    private String houseNumber;
-    private String officeNumber;
-    private Street street;
-    private Sector sector;
-    private Town town;
-    private Region region;
-    private List<Email> emails = new ArrayList<>();
+    private Department department;
+    private Position position;
     private List<Phone> phones = new ArrayList<>();
     private List<Phone> allPhones = new ArrayList<>();
-    private List<Url> urls = new ArrayList<>();
     private List<Phone> fax = new ArrayList<>();
     private List<Phone> gsm = new ArrayList<>();
 
@@ -64,93 +56,28 @@ public class Contact {
         this.enterprise = enterprise;
     }
 
-    @Column(name = "postal_code")
-    @Field
-    public String getPostalCode() {
-        return postalCode;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    @Column(name = "house_number")
-    @Field
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    @Column(name = "office_number")
-    @Field
-    public String getOfficeNumber() {
-        return officeNumber;
-    }
-
-    public void setOfficeNumber(String officeNumber) {
-        this.officeNumber = officeNumber;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @ManyToOne
-    @JoinColumn(name = "street_id")
-    @IndexedEmbedded(includePaths = {"titles.title"})
-    public Street getStreet() {
-        return street;
+    @JoinColumn(name = "position_id")
+    public Position getPosition() {
+        return position;
     }
 
-    public void setStreet(Street street) {
-        this.street = street;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "sector_id")
-    @IndexedEmbedded(includePaths = {"titles.title"})
-    public Sector getSector() {
-        return sector;
-    }
-
-    public void setSector(Sector sector) {
-        this.sector = sector;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     @ManyToOne
-    @JoinColumn(name = "town_id")
-    @IndexedEmbedded(includePaths = {"titles.title"})
-    public Town getTown() {
-        return town;
-    }
-
-    public void setTown(Town town) {
-        this.town = town;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "region_id")
-    @IndexedEmbedded(includePaths = {"titles.title"})
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    @OneToMany
-    @JoinColumn(name = "contact_id")
-    @IndexedEmbedded(includePaths = {"email"})
-    public List<Email> getEmails() {
-        return emails;
-    }
-
-    public void setEmails(List<Email> emails) {
-        this.emails = emails;
-    }
-
-    @OneToMany
-    @JoinTable(name = DB.SCHEMA + "DB_contact_phone", joinColumns = @JoinColumn(name = "contact_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    @JoinColumn(name = "phone_id")
     @IndexedEmbedded(includePaths = {"phone"})
     @Where(clause = "type=" + Phone.TEL + " or type=" + Phone.TELFAX)
     public List<Phone> getPhones() {
@@ -161,8 +88,8 @@ public class Contact {
         this.phones = phones;
     }
 
-    @OneToMany
-    @JoinTable(name = DB.SCHEMA + "DB_contact_phone", joinColumns = @JoinColumn(name = "contact_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    @ManyToOne
+    @JoinColumn(name = "phone_id")
     @IndexedEmbedded(includePaths = {"phone"})
     @Where(clause = "type=" + Phone.FAX + "or type=" + Phone.TELFAX)
     public List<Phone> getFax() {
@@ -173,8 +100,8 @@ public class Contact {
         this.fax = fax;
     }
 
-    @OneToMany
-    @JoinTable(name = DB.SCHEMA + "DB_contact_phone", joinColumns = @JoinColumn(name = "contact_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    @ManyToOne
+    @JoinColumn(name = "phone_id")
     @IndexedEmbedded(includePaths = {"phone"})
     @Where(clause = "type="+ Phone.GSM)
     public List<Phone> getGsm() {
@@ -185,8 +112,8 @@ public class Contact {
         this.gsm = gsm;
     }
 
-    @OneToMany
-    @JoinTable(name = DB.SCHEMA + "DB_contact_phone", joinColumns = @JoinColumn(name = "contact_id"), inverseJoinColumns = @JoinColumn(name = "id"))
+    @ManyToOne
+    @JoinColumn(name = "phone_id")
     public List<Phone> getAllPhones() {
         return allPhones;
     }
@@ -195,30 +122,4 @@ public class Contact {
         this.allPhones = allPhones;
     }
 
-    @OneToMany
-    @JoinColumn(name = "contact_id")
-    @IndexedEmbedded(includePaths = {"url"})
-    public List<Url> getUrls() {
-        return urls;
-    }
-
-    public void setUrls(List<Url> urls) {
-        this.urls = urls;
-    }
-
-    @Override
-    public String toString() {
-        return   //"id=" + id +
-                ", postalCode='" + postalCode + '\'' +
-                ", houseNumber='" + houseNumber + '\'' +
-                ", officeNumber='" + officeNumber + '\'' +
-                ", street=" + street +
-                ", sector=" + sector +
-                ", town=" + town +
-                ", region=" + region +
-                ", emails=" + emails +
-                ", phones=" + phones +
-                ", urls=" + urls
-                ;
-    }
 }

@@ -15,10 +15,11 @@ import javax.persistence.*;
  */
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name = DB.SCHEMA + "DB_email")
+@Table(name = DB.SCHEMA + DB.ENTERPRISE + "email")
 public class Email {
     private Long id;
     private String email;
+    private Enterprise enterprise;
 
     public Email() {
     }
@@ -47,6 +48,16 @@ public class Email {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id")
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
     }
 
     @Override
