@@ -1,10 +1,9 @@
 package md.varoinform.model.entities.base;
 
 import md.varoinform.model.utils.DB;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -14,8 +13,9 @@ import java.util.List;
 @Entity
 @Table(name = DB.SCHEMA + DB.BASE + "FirstName")
 public class FirstName extends TitleContainer<FirstNameI18N> {
-    @Override
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "first_name_id")
+    @IndexedEmbedded(includePaths = {"title"})
     public List<FirstNameI18N> getTitles() {
         return titles;
     }

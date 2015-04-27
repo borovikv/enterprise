@@ -14,10 +14,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = DB.SCHEMA + DB.BASE + "departmentTitle")
 public class DepartmentTitle extends Title<Department> {
-    @Override
+    private Department department;
+
     @ManyToOne
     @JoinColumn(name = "department_id")
-    public Department getContainer() {
-        return container;
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

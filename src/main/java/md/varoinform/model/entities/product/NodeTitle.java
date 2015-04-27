@@ -15,13 +15,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = DB.SCHEMA + DB.PRODUCT + "NodeTitle")
 public class NodeTitle extends Title<Node> {
+    private Node node;
     public NodeTitle() {
     }
 
-    @Override
     @ManyToOne
     @JoinColumn(name = "node_id")
-    public Node getContainer() {
-        return container;
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
     }
 }

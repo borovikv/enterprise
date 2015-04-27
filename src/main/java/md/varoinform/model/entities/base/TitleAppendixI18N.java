@@ -15,10 +15,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = DB.SCHEMA + DB.BASE + "TitleAppendixI18N")
 public class TitleAppendixI18N extends Title<TitleAppendix> {
-    @Override
+    private TitleAppendix appendix;
+
     @ManyToOne
     @JoinColumn(name = "appendix_id")
-    public TitleAppendix getContainer() {
-        return container;
+    public TitleAppendix getAppendix() {
+        return appendix;
+    }
+
+    public void setAppendix(TitleAppendix appendix) {
+        this.appendix = appendix;
     }
 }

@@ -28,9 +28,9 @@ public class Contact {
     private Department department;
     private Position position;
     private List<Phone> phones = new ArrayList<>();
-    private List<Phone> allPhones = new ArrayList<>();
-    private List<Phone> fax = new ArrayList<>();
-    private List<Phone> gsm = new ArrayList<>();
+//    private List<Phone> allPhones = new ArrayList<>();
+//    private List<Phone> fax = new ArrayList<>();
+//    private List<Phone> gsm = new ArrayList<>();
 
 
     @Id
@@ -76,10 +76,9 @@ public class Contact {
         this.position = position;
     }
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Phone.class)
     @JoinColumn(name = "phone_id")
     @IndexedEmbedded(includePaths = {"phone"})
-    @Where(clause = "type=" + Phone.TEL + " or type=" + Phone.TELFAX)
     public List<Phone> getPhones() {
         return phones;
     }
@@ -88,38 +87,39 @@ public class Contact {
         this.phones = phones;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "phone_id")
-    @IndexedEmbedded(includePaths = {"phone"})
-    @Where(clause = "type=" + Phone.FAX + "or type=" + Phone.TELFAX)
-    public List<Phone> getFax() {
-        return fax;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "phone_id")
+//    @IndexedEmbedded(includePaths = {"phone"})
+//    @Where(clause = "type=" + Phone.FAX + "or type=" + Phone.TELFAX)
+//    public List<Phone> getFax() {
+//        return fax;
+//    }
+//
+//    public void setFax(List<Phone> fax) {
+//        this.fax = fax;
+//    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "phone_id")
+//    @IndexedEmbedded(includePaths = {"phone"})
+//    @Where(clause = "type="+ Phone.GSM)
+//    public List<Phone> getGsm() {
+//        return gsm;
+//    }
+//
+//    public void setGsm(List<Phone> gsm) {
+//        this.gsm = gsm;
+//    }
 
-    public void setFax(List<Phone> fax) {
-        this.fax = fax;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "phone_id")
-    @IndexedEmbedded(includePaths = {"phone"})
-    @Where(clause = "type="+ Phone.GSM)
-    public List<Phone> getGsm() {
-        return gsm;
-    }
-
-    public void setGsm(List<Phone> gsm) {
-        this.gsm = gsm;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "phone_id")
-    public List<Phone> getAllPhones() {
-        return allPhones;
-    }
-
-    public void setAllPhones(List<Phone> allPhones) {
-        this.allPhones = allPhones;
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "phone_id")
+//    @Where(clause = "type="+ Phone.GSM +  "or type=" + Phone.TEL + " or type=" + Phone.TELFAX + "or type=" + Phone.FAX)
+//    public List<Phone> getAllPhones() {
+//        return allPhones;
+//    }
+//
+//    public void setAllPhones(List<Phone> allPhones) {
+//        this.allPhones = allPhones;
+//    }
 
 }

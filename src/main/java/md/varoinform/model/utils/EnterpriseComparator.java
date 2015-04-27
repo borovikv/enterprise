@@ -27,8 +27,9 @@ public class EnterpriseComparator implements Comparator<Enterprise> {
 
     @Override
     public int compare(Enterprise o1, Enterprise o2) {
-        String titleO1 = o1.title(lang);
-        String titleO2 = o2.title(lang);
-        return collator.compare(titleO1, titleO2);
+        //String titleO1 = o1.title(lang);
+        //String titleO2 = o2.title(lang);
+        //return collator.compare(titleO1, titleO2);
+        return 0;
     }
 }

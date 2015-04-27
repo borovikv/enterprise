@@ -1,6 +1,10 @@
 package md.varoinform.model.utils;
 
 
+import md.varoinform.model.entities.address.AddressNode;
+import md.varoinform.model.entities.address.AddressNodeTitle;
+import md.varoinform.model.entities.address.AddressNodeType;
+import md.varoinform.model.entities.address.PostalCode;
 import md.varoinform.model.entities.base.*;
 import md.varoinform.model.entities.enterprise.*;
 import md.varoinform.model.entities.local.Database;
@@ -22,23 +26,30 @@ import java.nio.file.Paths;
 @SuppressWarnings("unused")
 public class Configurator {
     private static final Class[] entities = {
+            AddressNode.class, AddressNodeTitle.class, AddressNodeType.class, PostalCode.class,
+
             Arc.class, Node.class, NodeTitle.class, Product.class, ProductTitle.class,  ProductType.class, ProductNode.class,
 
             Brand.class,
+            Department.class, DepartmentTitle.class,
             EnterpriseType.class, EnterpriseTypeTitle.class,
+            FirstName.class, FirstNameI18N.class,
             Language.class,
-            Position.class, PositionTitle.class,
+            LastName.class, LastNameI18N.class,
             Phone.class,
+            Position.class, PositionTitle.class,
+            TitleAppendix.class, TitleAppendixI18N.class,
 
-            EnterpriseProduct.class,
             Contact.class,
-            Person.class,
             Email.class,
-            Enterprise.class, EnterpriseTitle.class,
+            Enterprise.class,
+            EnterpriseProduct.class,
+            EnterpriseTitle.class,
+            Location.class,
+            Person.class,
             WWW.class,
 
-            Tag.class, TagEnterprise.class,
-            Database.class,
+            Tag.class, TagEnterprise.class, Database.class,
     };
     private final String pathToDb;
     private final String password;

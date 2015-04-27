@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = DB.SCHEMA + DB.BASE + "enterpriseTypeTitle")
 public class EnterpriseTypeTitle extends Title<EnterpriseType> {
+    private EnterpriseType type;
     public EnterpriseTypeTitle() {
     }
 
@@ -21,10 +22,14 @@ public class EnterpriseTypeTitle extends Title<EnterpriseType> {
         super(language, title, enterpriseType);
     }
 
-    @Override
+
     @ManyToOne
     @JoinColumn(name = "enterprise_type_id")
-    public EnterpriseType getContainer() {
-        return container;
+    public EnterpriseType getType() {
+        return type;
+    }
+
+    public void setType(EnterpriseType type) {
+        this.type = type;
     }
 }

@@ -1,6 +1,7 @@
 package md.varoinform.model.entities.base;
 
 import md.varoinform.model.utils.DB;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,8 +16,9 @@ import java.util.List;
 @Table(name = DB.SCHEMA + DB.BASE + "enterpriseType")
 public class EnterpriseType extends TitleContainer<EnterpriseTypeTitle> {
 
-    @Override
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "enterprise_type_id")
+    @IndexedEmbedded(includePaths = {"title"})
     public List<EnterpriseTypeTitle> getTitles() {
         return titles;
     }

@@ -33,9 +33,6 @@ public abstract class TitleContainer<T extends Title> {
         this.id = id;
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @IndexedEmbedded(includePaths = {"title"})
-    public abstract List<T> getTitles();
 
     public void setTitles(List<T> titles) {
         this.titles = titles;

@@ -3,6 +3,7 @@ package md.varoinform.model.entities.product;
 import md.varoinform.model.entities.base.TitleContainer;
 import md.varoinform.model.entities.enterprise.Enterprise;
 import md.varoinform.model.utils.DB;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -59,8 +60,9 @@ public class Node extends TitleContainer<NodeTitle> implements Serializable{
         return id.hashCode();
     }
 
-    @Override
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "node_id")
+    @IndexedEmbedded(includePaths = {"title"})
     public List<NodeTitle> getTitles() {
         return titles;
     }

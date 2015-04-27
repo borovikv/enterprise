@@ -3,10 +3,7 @@ package md.varoinform.model.entities.product;
 import md.varoinform.model.entities.base.Title;
 import md.varoinform.model.utils.DB;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 /**
@@ -16,10 +13,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = DB.SCHEMA + DB.PRODUCT + "Title")
 public class ProductTitle extends Title<Product> {
-    @Override
+    private Product product;
     @ManyToOne
     @JoinColumn(name = "product_id")
-    public Product getContainer() {
-        return container;
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

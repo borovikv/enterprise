@@ -2,10 +2,9 @@ package md.varoinform.model.entities.product;
 
 import md.varoinform.model.entities.base.TitleContainer;
 import md.varoinform.model.utils.DB;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -15,8 +14,10 @@ import java.util.List;
 @Entity
 @Table(name = DB.SCHEMA + DB.PRODUCT + "product")
 public class Product extends TitleContainer<ProductTitle> {
-    @Override
+
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
+    @IndexedEmbedded(includePaths = {"title"})
     public List<ProductTitle> getTitles() {
         return titles;
     }

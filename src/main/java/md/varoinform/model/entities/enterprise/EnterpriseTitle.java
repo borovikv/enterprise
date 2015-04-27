@@ -23,33 +23,69 @@ import java.util.Map;
 @Entity
 @Table(name = DB.SCHEMA + DB.ENTERPRISE + "title")
 public class EnterpriseTitle{
+    private Long id;
+    private String title;
+    private String titleType;
+    private TitleAppendix appendix;
+    private Enterprise enterprise;
+    private Map<DefaultLanguages, String> titleMap;
+
+
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    private Long id;
+    public Long getId() {
+        return id;
+    }
 
-    @Column(name = "title")
-    @Field(index = org.hibernate.search.annotations.Index.YES, analyze = Analyze.YES, store = Store.NO)
-    @Analyzer(definition = "customanalyzer")
-    private String title;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Column
+    @Analyzer(definition = "customanalizer")
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @Column(name = "title_type")
     @Field(index = Index.NO, analyze = Analyze.YES, store = Store.NO)
-    private String titleType;
+    public String getTitleType() {
+        return titleType;
+    }
+
+    public void setTitleType(String titleType) {
+        this.titleType = titleType;
+    }
 
     @ManyToOne
     @JoinColumn(name = "appendix_id")
-    private TitleAppendix appendix;
+    public TitleAppendix getAppendix() {
+        return appendix;
+    }
+
+    public void setAppendix(TitleAppendix appendix) {
+        this.appendix = appendix;
+    }
+
 
     @ManyToOne
     @JoinColumn(name = "enterprise_id")
-    private Enterprise enterprise;
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
+    }
 
 
-    private Map<DefaultLanguages, String> titleMap;
-
-    public Map<DefaultLanguages, String> getMap(){
+    public Map<DefaultLanguages, String> toMap(){
         if (titleMap != null) return titleMap;
 
         titleMap = new HashMap<>();
@@ -68,10 +104,10 @@ public class EnterpriseTitle{
     }
 
     public String titleForLang(DefaultLanguages language){
-        return getMap().get(language);
+        return toMap().get(language);
     }
 
     public String titleForLang(String language){
-        return getMap().get(DefaultLanguages.getLanguageByTitle(language));
+        return toMap().get(DefaultLanguages.getLanguageByTitle(language));
     }
 }

@@ -12,10 +12,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = DB.SCHEMA + DB.ADDRESS + "nodetitle")
 public class AddressNodeTitle extends Title<AddressNode>{
-    @Override
+    private AddressNode addressNode;
+
     @ManyToOne
     @JoinColumn(name = "container_id")
-    public AddressNode getContainer() {
-        return container;
+    public AddressNode getAddressNode() {
+        return addressNode;
+    }
+
+    public void setAddressNode(AddressNode addressNode) {
+        this.addressNode = addressNode;
     }
 }

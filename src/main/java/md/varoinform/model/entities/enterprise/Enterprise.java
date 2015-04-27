@@ -3,7 +3,6 @@ package md.varoinform.model.entities.enterprise;
 import md.varoinform.model.entities.base.Brand;
 import md.varoinform.model.entities.base.EnterpriseType;
 import md.varoinform.model.utils.DB;
-import md.varoinform.model.utils.EnterpriseComparator;
 import org.apache.solr.analysis.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.*;
@@ -56,7 +55,7 @@ import java.util.*;
                 })
         })
 @Table(name = DB.SCHEMA + "DB_enterprise")
-public class Enterprise implements Serializable, Comparable<Enterprise> {
+public class Enterprise implements Serializable {
     private Long id;
     // Todo:
     private String status;
@@ -69,6 +68,9 @@ public class Enterprise implements Serializable, Comparable<Enterprise> {
     private Boolean tva;
 
     private List<Contact> contacts = new ArrayList<>();
+    private List<Email> emails = new ArrayList<>();
+    private List<WWW> urls = new ArrayList<>();
+    private List<Location> locations = new ArrayList<>();
     private List<Person> persons = new ArrayList<>();
     private List<Brand> brands = new ArrayList<>();
     private Set<EnterpriseProduct> goods = new HashSet<>();
@@ -97,7 +99,7 @@ public class Enterprise implements Serializable, Comparable<Enterprise> {
     }
 
     @ManyToOne
-    @JoinColumn(name = "business_entity_id")
+    @JoinColumn(name = "entity_type_id")
     @IndexedEmbedded(includePaths = { "titles.title" })
     public EnterpriseType getEnterpriseType() {
         return enterpriseType;
@@ -137,10 +139,7 @@ public class Enterprise implements Serializable, Comparable<Enterprise> {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "enterprise_id")
-    @IndexedEmbedded(includePaths = { "postalCode", "houseNumber", "officeNumber",
-            "street.titles.title", "sector.titles.title", "town.titles.title",
-            "region.titles.title",
-            "emails.email", "phones.phone", "urls.url" })
+    @IndexedEmbedded(includePaths = {"phones.phone"})
     public List<Contact> getContacts() {
         return contacts;
     }
@@ -151,7 +150,7 @@ public class Enterprise implements Serializable, Comparable<Enterprise> {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "enterprise_id")
-    @IndexedEmbedded(includePaths = {"person.titles.title", "phones.phone"})
+    @IndexedEmbedded(includePaths = {"firstName.titles.title", "lastName.titles.title", "phones.phone"})
     public List<Person> getPersons() {
         return persons;
     }
@@ -161,7 +160,7 @@ public class Enterprise implements Serializable, Comparable<Enterprise> {
     }
 
     @ManyToMany
-    @JoinTable(name = DB.SCHEMA + "DB_enterprise_brand", joinColumns = @JoinColumn(name = "enterprise_id"), inverseJoinColumns = @JoinColumn(name = "brand_id"))
+    @JoinTable(name = DB.SCHEMA + DB.ENTERPRISE + "enterprise_brand", joinColumns = @JoinColumn(name = "enterprise_id"), inverseJoinColumns = @JoinColumn(name = "brand_id"))
     @IndexedEmbedded(includePaths = {"title"})
     public List<Brand> getBrands() {
         return brands;
@@ -193,19 +192,63 @@ public class Enterprise implements Serializable, Comparable<Enterprise> {
         this.titles = titles;
     }
 
+    @OneToMany
+    @JoinColumn(name = "enterprise_id")
+    @IndexedEmbedded(includePaths = {"email"})
+    public List<Email> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
+    }
+
+    @OneToMany
+    @JoinColumn(name = "enterprise_id")
+    @IndexedEmbedded
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
+    }
+
+    @Column(name = "status")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Column(name = "tva")
+    public Boolean getTva() {
+        return tva;
+    }
+
+    public void setTva(Boolean tva) {
+        this.tva = tva;
+    }
+
+    @OneToMany
+    @JoinColumn(name = "enterprise_id")
+    @IndexedEmbedded(includePaths = {"url"})
+    public List<WWW> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<WWW> urls) {
+        this.urls = urls;
+    }
+
     @Override
     public String toString() {
         return "Enterprise{" +
                 "title =" + titles +
 
                 '}';
-    }
-
-    @SuppressWarnings("NullableProblems")
-    @Override
-    public int compareTo(Enterprise o) {
-        EnterpriseComparator comparator = new EnterpriseComparator("EN");
-        return comparator.compare(this, o);
     }
 
     @Override

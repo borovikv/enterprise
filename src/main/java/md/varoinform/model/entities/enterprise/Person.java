@@ -84,7 +84,7 @@ public class Person {
         this.position = position;
     }
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Phone.class)
     @JoinColumn(name = "phone_id")
     @IndexedEmbedded
     public List<Phone> getPhones() {

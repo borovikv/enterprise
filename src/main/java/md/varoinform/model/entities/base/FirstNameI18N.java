@@ -15,10 +15,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = DB.SCHEMA + DB.BASE + "FirstNameI18N")
 public class FirstNameI18N extends Title<FirstName> {
-    @Override
+    private FirstName firstName;
+
     @ManyToOne
     @JoinColumn(name = "first_name_id")
-    public FirstName getContainer() {
-        return container;
+    public FirstName getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(FirstName firstName) {
+        this.firstName = firstName;
     }
 }

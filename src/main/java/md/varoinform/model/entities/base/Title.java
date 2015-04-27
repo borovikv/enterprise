@@ -18,7 +18,6 @@ public abstract class Title<T extends TitleContainer> implements TitleInterface{
     private Long id;
     private Language language;
     private String title;
-    protected T container;
 
     public Title() {
     }
@@ -26,7 +25,6 @@ public abstract class Title<T extends TitleContainer> implements TitleInterface{
     public Title(Language language, String title, T container) {
         setLanguage(language);
         setTitle(title);
-        setContainer(container);
     }
 
     @Id
@@ -62,11 +60,6 @@ public abstract class Title<T extends TitleContainer> implements TitleInterface{
         this.title = title;
     }
 
-    public abstract T getContainer();
-
-    public void setContainer(T container) {
-        this.container = container;
-    }
 
     @Override
     public String toString() {

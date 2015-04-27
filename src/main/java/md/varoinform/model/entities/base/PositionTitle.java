@@ -1,6 +1,7 @@
 package md.varoinform.model.entities.base;
 
 import md.varoinform.model.utils.DB;
+import org.jboss.logging.annotations.Pos;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = DB.SCHEMA + DB.BASE + "positiontitle")
 public class PositionTitle extends Title<Position> {
+    private Position position;
     public PositionTitle() {
     }
 
@@ -20,11 +22,14 @@ public class PositionTitle extends Title<Position> {
         super(language, title, position);
     }
 
-    @Override
     @ManyToOne
     @JoinColumn(name = "position_id")
-    public Position getContainer() {
-        return container;
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
 
