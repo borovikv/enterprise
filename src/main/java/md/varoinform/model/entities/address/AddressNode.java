@@ -21,7 +21,7 @@ public class AddressNode extends TitleContainer<AddressNodeTitle> {
     @Override
     @JoinColumn(name="node_id")
     public List<AddressNodeTitle> getTitles() {
-        return null;
+        return titles;
     }
 
     @ManyToOne

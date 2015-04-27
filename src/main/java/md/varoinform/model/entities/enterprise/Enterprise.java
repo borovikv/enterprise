@@ -2,7 +2,7 @@ package md.varoinform.model.entities.enterprise;
 
 import md.varoinform.model.entities.base.TitleContainer;
 import md.varoinform.model.entities.base.Brand;
-import md.varoinform.model.entities.base.BusinessEntityType;
+import md.varoinform.model.entities.base.EnterpriseType;
 import md.varoinform.model.utils.DB;
 import md.varoinform.model.utils.EnterpriseComparator;
 import org.apache.solr.analysis.*;
@@ -58,7 +58,7 @@ import java.util.*;
 @Table(name = DB.SCHEMA + "DB_enterprise")
 public class Enterprise extends TitleContainer<EnterpriseTitle> implements Serializable, Comparable<Enterprise> {
     private String idno;
-    private BusinessEntityType businessEntityType;
+    private EnterpriseType enterpriseType;
     private Integer creation;
     private Boolean foreignCapital;
     private Integer workplaces;
@@ -83,12 +83,12 @@ public class Enterprise extends TitleContainer<EnterpriseTitle> implements Seria
     @ManyToOne
     @JoinColumn(name = "business_entity_id")
     @IndexedEmbedded(includePaths = { "titles.title" })
-    public BusinessEntityType getBusinessEntityType() {
-        return businessEntityType;
+    public EnterpriseType getEnterpriseType() {
+        return enterpriseType;
     }
 
-    public void setBusinessEntityType(BusinessEntityType businessEntityType) {
-        this.businessEntityType = businessEntityType;
+    public void setEnterpriseType(EnterpriseType enterpriseType) {
+        this.enterpriseType = enterpriseType;
     }
 
     @Column(name = "creation")

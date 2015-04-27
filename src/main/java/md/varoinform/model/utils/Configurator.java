@@ -1,7 +1,6 @@
 package md.varoinform.model.utils;
 
 
-import md.varoinform.model.entities.address.*;
 import md.varoinform.model.entities.base.*;
 import md.varoinform.model.entities.enterprise.*;
 import md.varoinform.model.entities.local.Database;
@@ -26,22 +25,16 @@ public class Configurator {
             Arc.class, Node.class, NodeTitle.class,
             Good.class, GoodTitle.class,  GoodEnterprise.class, GoodType.class, GoodTypeTitle.class,
             Brand.class,
-            BusinessEntityType.class, BusinessEntityTypeTitle.class,
+            EnterpriseType.class, EnterpriseTypeTitle.class,
             Contact.class,
             ContactPerson.class,
             Email.class,
             Enterprise.class, EnterpriseTitle.class,
             Language.class,
-            Person.class, PersonTitle.class,
             Phone.class,
             Position.class, PositionTitle.class,
-            Region.class, RegionTitle.class,
-            Sector.class, SectorTitle.class,
-            Street.class, StreetTitle.class,
             Tag.class, TagEnterprise.class,
             Database.class,
-            TopAdministrativeUnit.class, TopAdministrativeUnitTitle.class,
-            Town.class, TownTitle.class,
             Url.class
     };
     private final String pathToDb;

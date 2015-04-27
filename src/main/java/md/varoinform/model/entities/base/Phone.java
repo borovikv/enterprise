@@ -14,14 +14,14 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = DB.SCHEMA + "DB_phone")
+@Table(name = DB.SCHEMA + DB.BASE + "phone")
 public class Phone {
-    public static final int FAX = 1;
-    public static final int TEL = 2;
-    public static final int TELFAX = 3;
-    public static final int GSM = 4;
+    public static final String FAX = "FAX";
+    public static final String TEL = "TEL";
+    public static final String TELFAX = "T/F";
+    public static final String GSM = "MOB";
     private Long id;
-    private Long type;
+    private String type;
     private String phone;
 
     public Phone() {
@@ -58,12 +58,12 @@ public class Phone {
         return phone;
     }
 
-    @Column(name = "type")
-    public Long getType() {
+    @Column(name = "phone_type")
+    public String getType() {
         return type;
     }
 
-    public void setType(Long type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

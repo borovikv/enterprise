@@ -14,7 +14,7 @@ import javax.persistence.*;
  * Time: 11:05 AM
  */
 @Entity
-@Table(name = DB.SCHEMA + "DB_brand")
+@Table(name = DB.SCHEMA + DB.BASE + "brand")
 public class Brand {
     private Long id;
     private String title;
