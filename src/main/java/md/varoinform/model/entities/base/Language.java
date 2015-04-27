@@ -57,10 +57,6 @@ public class Language {
 
     @Override
     public int hashCode() {
-        int result = 17;
-        Integer id = this.id;
-        int c = id^(id >>> 32);
-        result = 31 * result + c;
-        return  result;
+        return this.id.hashCode();
     }
 }
