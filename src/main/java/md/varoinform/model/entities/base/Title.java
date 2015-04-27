@@ -14,11 +14,11 @@ import javax.persistence.*;
  */
 @SuppressWarnings("UnusedDeclaration")
 @MappedSuperclass
-public class Title<T extends TitleContainer> implements TitleInterface{
+public abstract class Title<T extends TitleContainer> implements TitleInterface{
     private Long id;
     private Language language;
     private String title;
-    private T container;
+    protected T container;
 
     public Title() {
     }
@@ -62,11 +62,7 @@ public class Title<T extends TitleContainer> implements TitleInterface{
         this.title = title;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "container_id")
-    public T getContainer() {
-        return container;
-    }
+    public abstract T getContainer();
 
     public void setContainer(T container) {
         this.container = container;

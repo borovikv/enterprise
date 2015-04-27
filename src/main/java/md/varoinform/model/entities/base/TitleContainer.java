@@ -16,9 +16,9 @@ import java.util.Map;
  * Time: 2:32 PM
  */
 @MappedSuperclass
-public class TitleContainer<T extends Title> {
+public abstract class TitleContainer<T extends Title> {
     protected Long id;
-    private List<T> titles = new ArrayList<>();
+    protected List<T> titles = new ArrayList<>();
     private Map<String, String> titleMap = new HashMap<>();
 
     @Id
@@ -34,11 +34,8 @@ public class TitleContainer<T extends Title> {
     }
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "container_id")
     @IndexedEmbedded(includePaths = {"title"})
-    public List<T> getTitles() {
-        return titles;
-    }
+    public abstract List<T> getTitles();
 
     public void setTitles(List<T> titles) {
         this.titles = titles;

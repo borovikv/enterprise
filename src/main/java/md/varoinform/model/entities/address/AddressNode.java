@@ -2,11 +2,10 @@ package md.varoinform.model.entities.address;
 
 import md.varoinform.model.entities.base.TitleContainer;
 import md.varoinform.model.utils.DB;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by vladimir on 27.04.15.
@@ -17,6 +16,13 @@ import javax.persistence.Table;
 public class AddressNode extends TitleContainer<AddressNodeTitle> {
     private AddressNode parent;
     private AddressNodeType type;
+    private PostalCode code;
+
+    @Override
+    @JoinColumn(name="node_id")
+    public List<AddressNodeTitle> getTitles() {
+        return null;
+    }
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
@@ -36,5 +42,16 @@ public class AddressNode extends TitleContainer<AddressNodeTitle> {
 
     public void setType(AddressNodeType type) {
         this.type = type;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "postal_code_id")
+    @IndexedEmbedded(includePaths = {"code"})
+    public PostalCode getCode() {
+        return code;
+    }
+
+    public void setCode(PostalCode code) {
+        this.code = code;
     }
 }
