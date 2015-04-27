@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "DB_tag")
 public class Tag implements Comparable<Tag>{
-    private Long id;
+    private Integer id;
     private String title;
     private Set<Enterprise> enterprises;
 
@@ -24,11 +24,11 @@ public class Tag implements Comparable<Tag>{
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -56,6 +56,7 @@ public class Tag implements Comparable<Tag>{
         return title;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public int compareTo(Tag o) {
         if (o == null) return 1;

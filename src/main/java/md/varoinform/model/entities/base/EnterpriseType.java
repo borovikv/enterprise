@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 10:54 AM
  */
 @Entity
-@Table(name = DB.SCHEMA + DB.BASE + "enterpriseType")
+@Table(name = DB.SCHEMA + DB.BASE + "enterprisetype")
 public class EnterpriseType extends TitleContainer<EnterpriseTypeTitle> {
 
     @OneToMany(fetch = FetchType.EAGER)

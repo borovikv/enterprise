@@ -15,7 +15,7 @@ public class AddressNodeTitle extends Title<AddressNode>{
     private AddressNode addressNode;
 
     @ManyToOne
-    @JoinColumn(name = "container_id")
+    @JoinColumn(name = "node_id")
     public AddressNode getAddressNode() {
         return addressNode;
     }

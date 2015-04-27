@@ -12,13 +12,13 @@ import javax.persistence.*;
  *
  */
 @Entity
-@Table(name = DB.SCHEMA + DB.ENTERPRISE + "enterprise_brand")
+@Table(name = DB.SCHEMA + DB.ENTERPRISE + "enterprise_brands")
 public class EnterpriseBrand {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "enterprise_id")

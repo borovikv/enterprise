@@ -30,14 +30,14 @@ public class TagEnterprise {
     @Embeddable
     public static class Id implements Serializable {
         @Column(name = "tag_id")
-        private Long tagId;
+        private Integer tagId;
 
         @Column(name = "enterprise_id")
-        private Long enterpriseId;
+        private Integer enterpriseId;
 
         public Id() {}
 
-        public Id(Long tagId, Long enterpriseId) {
+        public Id(Integer tagId, Integer enterpriseId) {
             this.tagId = tagId;
             this.enterpriseId = enterpriseId;
         }

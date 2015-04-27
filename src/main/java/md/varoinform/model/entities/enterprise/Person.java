@@ -22,7 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = DB.SCHEMA + DB.ENTERPRISE + "person")
 public class Person {
-    private Long id;
+    private Integer id;
     private Enterprise enterprise;
     private FirstName firstName;
     private LastName lastName;
@@ -33,11 +33,11 @@ public class Person {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -54,17 +54,15 @@ import java.util.*;
                         @Parameter(name = "language", value = "Romanian")
                 })
         })
-@Table(name = DB.SCHEMA + "DB_enterprise")
+@Table(name = DB.SCHEMA + DB.ENTERPRISE + "enterprise")
 public class Enterprise implements Serializable {
-    private Long id;
-    // Todo:
+    private Integer id;
     private String status;
     private String idno;
-    private Integer creationYear;
-    private Integer numberOfJobs;
+    private Short creationYear;
+    private Short numberOfJobs;
     private Date lastChange;
     private EnterpriseType enterpriseType;
-    // todo:
     private Boolean tva;
 
     private List<Contact> contacts = new ArrayList<>();
@@ -80,11 +78,11 @@ public class Enterprise implements Serializable {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -110,21 +108,21 @@ public class Enterprise implements Serializable {
     }
 
     @Column(name = "creation_year")
-    public Integer getCreationYear() {
+    public Short getCreationYear() {
         return creationYear;
     }
 
-    public void setCreationYear(Integer creationYear) {
+    public void setCreationYear(Short creationYear) {
         this.creationYear = creationYear;
     }
 
 
     @Column(name = "number_of_jobs")
-    public Integer getNumberOfJobs() {
+    public Short getNumberOfJobs() {
         return numberOfJobs;
     }
 
-    public void setNumberOfJobs(Integer numberOfJobs) {
+    public void setNumberOfJobs(Short numberOfJobs) {
         this.numberOfJobs = numberOfJobs;
     }
 
@@ -160,7 +158,7 @@ public class Enterprise implements Serializable {
     }
 
     @ManyToMany
-    @JoinTable(name = DB.SCHEMA + DB.ENTERPRISE + "enterprise_brand", joinColumns = @JoinColumn(name = "enterprise_id"), inverseJoinColumns = @JoinColumn(name = "brand_id"))
+    @JoinTable(name = DB.SCHEMA + DB.ENTERPRISE + "enterprise_brands", joinColumns = @JoinColumn(name = "enterprise_id"), inverseJoinColumns = @JoinColumn(name = "brand_id"))
     @IndexedEmbedded(includePaths = {"title"})
     public List<Brand> getBrands() {
         return brands;

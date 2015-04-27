@@ -11,7 +11,7 @@ import javax.persistence.*;
  *
  */
 @Entity
-@Table(name = DB.SCHEMA + DB.PRODUCT + "Title")
+@Table(name = DB.SCHEMA + DB.PRODUCT + "title")
 public class ProductTitle extends Title<Product> {
     private Product product;
     @ManyToOne

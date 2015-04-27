@@ -20,7 +20,7 @@ public class Phone {
     public static final String TEL = "TEL";
     public static final String TELFAX = "T/F";
     public static final String GSM = "MOB";
-    private Long id;
+    private Integer id;
     private String type;
     private String phone;
 
@@ -35,11 +35,11 @@ public class Phone {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

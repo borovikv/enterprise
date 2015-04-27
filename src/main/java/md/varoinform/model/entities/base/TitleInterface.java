@@ -9,7 +9,7 @@ import md.varoinform.model.entities.base.Language;
  * Time: 11:40 AM
  */
 public interface TitleInterface {
-    Long getId();
+    Integer getId();
     Language getLanguage();
     String getTitle();
 }

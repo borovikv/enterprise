@@ -13,7 +13,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = DB.SCHEMA + DB.BASE + "FirstNameI18N")
+@Table(name = DB.SCHEMA + DB.BASE + "firstnamei18n")
 public class FirstNameI18N extends Title<FirstName> {
     private FirstName firstName;
 

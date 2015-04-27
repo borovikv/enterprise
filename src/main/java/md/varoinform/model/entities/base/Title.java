@@ -15,7 +15,7 @@ import javax.persistence.*;
 @SuppressWarnings("UnusedDeclaration")
 @MappedSuperclass
 public abstract class Title<T extends TitleContainer> implements TitleInterface{
-    private Long id;
+    private Integer id;
     private Language language;
     private String title;
 
@@ -31,11 +31,11 @@ public abstract class Title<T extends TitleContainer> implements TitleInterface{
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

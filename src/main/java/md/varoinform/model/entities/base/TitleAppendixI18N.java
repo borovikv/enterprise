@@ -13,7 +13,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = DB.SCHEMA + DB.BASE + "TitleAppendixI18N")
+@Table(name = DB.SCHEMA + DB.BASE + "titleappendixi18n")
 public class TitleAppendixI18N extends Title<TitleAppendix> {
     private TitleAppendix appendix;
 

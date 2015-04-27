@@ -14,13 +14,13 @@ import java.io.Serializable;
  */
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name = DB.SCHEMA + DB.PRODUCT + "Arcs")
+@Table(name = DB.SCHEMA + DB.PRODUCT + "node_arcs")
 public class Arc {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "from_node_id")

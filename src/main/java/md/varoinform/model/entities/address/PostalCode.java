@@ -13,29 +13,29 @@ import javax.persistence.*;
 @Entity
 @Table(name = DB.SCHEMA + DB.ADDRESS + "postalcode")
 public class PostalCode {
-    private Long id;
-    private String code;
+    private Integer id;
+    private Short code;
 
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Column(name = "code")
     @Field(index = org.hibernate.search.annotations.Index.YES, analyze = Analyze.YES, store = Store.NO)
     @Analyzer(definition = "customanalyzer")
-    public String getCode() {
+    public Short getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Short code) {
         this.code = code;
     }
 }

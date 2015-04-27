@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = DB.SCHEMA + DB.ENTERPRISE + "product")
 public class EnterpriseProduct {
-    private Long id;
+    private Integer id;
     private Enterprise enterprise;
     private Product product;
     private List<ProductType> productTypes;
@@ -32,11 +32,11 @@ public class EnterpriseProduct {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -52,7 +52,7 @@ public class EnterpriseProduct {
     }
 
     @ManyToOne
-    @JoinColumn(name = "good_id")
+    @JoinColumn(name = "product_id")
     @IndexedEmbedded(includePaths = "titles.title")
     public Product getProduct() {
         return product;

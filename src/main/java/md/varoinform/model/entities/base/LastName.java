@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 @Entity
-@Table(name = DB.SCHEMA + DB.BASE + "LastName")
+@Table(name = DB.SCHEMA + DB.BASE + "lastname")
 public class LastName extends TitleContainer<LastNameI18N> {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "last_name_id")

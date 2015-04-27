@@ -23,7 +23,7 @@ import java.util.Map;
 @Entity
 @Table(name = DB.SCHEMA + DB.ENTERPRISE + "title")
 public class EnterpriseTitle{
-    private Long id;
+    private Integer id;
     private String title;
     private String titleType;
     private TitleAppendix appendix;
@@ -35,11 +35,11 @@ public class EnterpriseTitle{
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

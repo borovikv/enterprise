@@ -26,7 +26,7 @@ public class Node extends TitleContainer<NodeTitle> implements Serializable{
     private Set<Enterprise> enterprises = new TreeSet<>();
 
     @ManyToMany
-    @JoinTable(name = DB.SCHEMA + DB.PRODUCT + "arcs", joinColumns = @JoinColumn(name = "from_node_id"), inverseJoinColumns = @JoinColumn(name = "to_node_id"))
+    @JoinTable(name = DB.SCHEMA + DB.PRODUCT + "node_arcs", joinColumns = @JoinColumn(name = "from_node_id"), inverseJoinColumns = @JoinColumn(name = "to_node_id"))
     public List<Node> getChildren() {
         return children;
     }
@@ -35,15 +35,15 @@ public class Node extends TitleContainer<NodeTitle> implements Serializable{
         this.children = children;
     }
 
-    @ManyToMany
-    @JoinTable(name = DB.SCHEMA + DB.ENTERPRISE + "Node_Enterprise", joinColumns = @JoinColumn(name = "node_id"), inverseJoinColumns = @JoinColumn(name = "enterprise_id"))
-    public Set<Enterprise> getEnterprises() {
-        return enterprises;
-    }
-
-    public void setEnterprises(Set<Enterprise> enterprises) {
-        this.enterprises = enterprises;
-    }
+//    @ManyToMany
+//    @JoinTable(name = DB.SCHEMA + DB.ENTERPRISE + "node_enterprise", joinColumns = @JoinColumn(name = "node_id"), inverseJoinColumns = @JoinColumn(name = "enterprise_id"))
+//    public Set<Enterprise> getEnterprises() {
+//        return enterprises;
+//    }
+//
+//    public void setEnterprises(Set<Enterprise> enterprises) {
+//        this.enterprises = enterprises;
+//    }
 
     @Override
     public boolean equals(Object o) {

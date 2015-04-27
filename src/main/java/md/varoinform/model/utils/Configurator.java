@@ -49,7 +49,7 @@ public class Configurator {
             Person.class,
             WWW.class,
 
-            Tag.class, TagEnterprise.class, Database.class,
+            //Tag.class, TagEnterprise.class, Database.class,
     };
     private final String pathToDb;
     private final String password;

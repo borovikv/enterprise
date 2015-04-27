@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = DB.SCHEMA + DB.ENTERPRISE + "location")
 public class Location {
-    private Long id;
+    private Integer id;
     private String office;
     private Enterprise enterprise;
     private AddressNode addressNode;
@@ -24,11 +24,11 @@ public class Location {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

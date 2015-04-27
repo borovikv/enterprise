@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 @Entity
-@Table(name = DB.SCHEMA + DB.BASE + "TitleAppendix")
+@Table(name = DB.SCHEMA + DB.BASE + "titleappendix")
 public class TitleAppendix extends TitleContainer<TitleAppendixI18N> {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "appendix_id")

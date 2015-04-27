@@ -15,18 +15,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Database")
 public class Database {
-    private Long id;
+    private Integer id;
     private String uid;
 
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

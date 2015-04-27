@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @MappedSuperclass
 public abstract class TitleContainer<T extends Title> {
-    protected Long id;
+    protected Integer id;
     protected List<T> titles = new ArrayList<>();
     private Map<String, String> titleMap = new HashMap<>();
 
@@ -25,11 +25,11 @@ public abstract class TitleContainer<T extends Title> {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

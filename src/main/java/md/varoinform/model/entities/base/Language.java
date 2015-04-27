@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = DB.SCHEMA + DB.BASE + "language")
 public class Language {
-    private Long id;
+    private Integer id;
     private String title;
 
     public Language() {
@@ -28,11 +28,11 @@ public class Language {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -58,8 +58,8 @@ public class Language {
     @Override
     public int hashCode() {
         int result = 17;
-        long id = this.id;
-        int c = (int)(id^(id >>> 32));
+        Integer id = this.id;
+        int c = id^(id >>> 32);
         result = 31 * result + c;
         return  result;
     }

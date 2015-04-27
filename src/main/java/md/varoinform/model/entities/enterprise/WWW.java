@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = DB.SCHEMA + DB.ENTERPRISE + "www")
 public class WWW {
-    private Long id;
+    private Integer id;
     private String url;
     private Enterprise enterprise;
 
@@ -33,11 +33,11 @@ public class WWW {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -12,7 +12,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = DB.SCHEMA + DB.BASE + "departmentTitle")
+@Table(name = DB.SCHEMA + DB.BASE + "departmenttitle")
 public class DepartmentTitle extends Title<Department> {
     private Department department;
 
