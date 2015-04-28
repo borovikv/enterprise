@@ -9,8 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.search.annotations.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +25,7 @@ public class Person {
     private FirstName firstName;
     private LastName lastName;
     private Position position;
-    private List<Phone> phones = new ArrayList<>();
+    private Phone phone;
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -84,14 +82,14 @@ public class Person {
         this.position = position;
     }
 
-    @ManyToOne(targetEntity = Phone.class)
+    @ManyToOne
     @JoinColumn(name = "phone_id")
     @IndexedEmbedded
-    public List<Phone> getPhones() {
-        return phones;
+    public Phone getPhones() {
+        return phone;
     }
 
-    public void setPhones(List<Phone> phones) {
-        this.phones = phones;
+    public void setPhones(Phone phone) {
+        this.phone = phone;
     }
 }

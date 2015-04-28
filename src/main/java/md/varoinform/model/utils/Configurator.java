@@ -16,6 +16,8 @@ import org.hibernate.cfg.Configuration;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,71 +28,59 @@ import java.nio.file.Paths;
 @SuppressWarnings("unused")
 public class Configurator {
     private static final Class[] entities = {
-            AddressNode.class, AddressNodeTitle.class, AddressNodeType.class, PostalCode.class,
+            Language.class,
 
-            Arc.class, Node.class, NodeTitle.class, Product.class, ProductTitle.class,  ProductType.class, ProductNode.class,
+            AddressNodeType.class, AddressNode.class, AddressNodeTitle.class, PostalCode.class,
+
+            Node.class, NodeTitle.class, Arc.class, Product.class, ProductTitle.class, ProductType.class, ProductNode.class,
 
             Brand.class,
             Department.class, DepartmentTitle.class,
             EnterpriseType.class, EnterpriseTypeTitle.class,
             FirstName.class, FirstNameI18N.class,
-            Language.class,
             LastName.class, LastNameI18N.class,
             Phone.class,
             Position.class, PositionTitle.class,
             TitleAppendix.class, TitleAppendixI18N.class,
 
+            Enterprise.class,
             Contact.class,
             Email.class,
-            Enterprise.class,
             EnterpriseProduct.class,
             EnterpriseTitle.class,
             Location.class,
             Person.class,
-            WWW.class,
-
-            //Tag.class, TagEnterprise.class, Database.class,
+            WWW.class
     };
-    private final String pathToDb;
-    private final String password;
+    
+    private String pathToDb = null;
+    private final Configuration cfg;
 
 
-    public Configurator(String pathToDb, String password) {
+    public Configurator(String pathToDb, String username, String password) {
+        this(username, password);
+
         if (pathToDb == null || pathToDb.isEmpty()) throw new IllegalArgumentException();
         Path path = Paths.get(pathToDb);
         if (Files.notExists(path.getParent()))
             throw new RuntimeException("file " + path.toAbsolutePath().toString() + " not found");
         this.pathToDb = path.toString();
-        this.password = password;
-    }
+        
 
-    public Configuration configure() {
-        Configuration cfg = getConfiguration();
-        setIndex(cfg);
-        showSql(cfg, false);
-        //setAuto(cfg, "update");
-        return cfg;
-    }
+        cfg.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
+        cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        cfg.setProperty("hibernate.connection.url", "jdbc:h2:file:" + pathToDb);
 
-    public Configuration configureWithoutIndex(){
-        Configuration cfg = getConfiguration();
-        showSql(cfg, false);
-        cfg.setProperty("hibernate.search.autoregister_listeners", "false");
-        return cfg;
     }
-
-    public Configuration getConfiguration() {
-        Configuration cfg = new Configuration();
+    
+    
+    public Configurator(String username, String password) {
+        cfg = new Configuration();
 
         for (Class entity : entities) {
             cfg.addAnnotatedClass(entity);
         }
-
-        cfg.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
-        cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-
-        cfg.setProperty("hibernate.connection.url", "jdbc:h2:file:" + pathToDb);
-        cfg.setProperty("hibernate.connection.username", "admin");
+        cfg.setProperty("hibernate.connection.username", username);
         cfg.setProperty("hibernate.connection.password", password);
 
         cfg.setProperty("hibernate.connection.pool_size", "1");
@@ -99,22 +89,56 @@ public class Configurator {
         cfg.setProperty("hibernate.generate_statistics", "false");
         cfg.setProperty("hibernate.use_sql_comments", "false");
         cfg.setProperty("hibernate.connection.autocommit", "false");
-
-        return cfg;
+        
+    }
+    
+    public void turnOnLocal(){
+        for (Class<?> entity : Arrays.asList(Tag.class, TagEnterprise.class, Database.class)) {
+            cfg.addAnnotatedClass(entity);
+        }
     }
 
-    public void setIndex(Configuration cfg) {
+    public static List<Class> getAnnotatedClass(){
+        return Arrays.asList(entities);
+    }
+    
+    public void setIndex() {
         cfg.setProperty("hibernate.search.default.directory_provider", "filesystem");
         cfg.setProperty("hibernate.search.default.indexBase", pathToDb + "/indexes");
     }
 
-    public void setAuto(Configuration cfg, String value) {
+    public void setAuto(String value) {
         cfg.setProperty("hibernate.hbm2ddl.auto", value);
     }
 
-    public void showSql(Configuration cfg, boolean b) {
+    public void showSql(boolean b) {
         cfg.setProperty("hibernate.show_sql", Boolean.toString(b));
 
     }
 
+    public Configuration defaultConfiguration() {
+        setIndex();
+        showSql(false);
+        setAuto("validate");
+        return cfg;
+    }
+    
+    public Configuration configureWithoutIndex(){
+        showSql(false);
+        cfg.setProperty("hibernate.search.autoregister_listeners", "false");
+        return cfg;
+    }
+    
+    public Configuration mySqlConfiguraion(){
+        configureWithoutIndex();
+        cfg.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+        cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+                                                                                                                                                                                                                                                                                                                                                                                                                cfg.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/edms");
+        setAuto("validate");
+        return cfg;
+    }
+
+    public Configuration getCfg() {
+        return cfg;
+    }
 }

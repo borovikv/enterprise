@@ -136,7 +136,7 @@ public class Enterprise implements Serializable {
     }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "enterprise_id")
+    @JoinColumn(name = "enterprise_id", updatable = false)
     @IndexedEmbedded(includePaths = {"phones.phone"})
     public List<Contact> getContacts() {
         return contacts;
@@ -147,7 +147,7 @@ public class Enterprise implements Serializable {
     }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "enterprise_id")
+    @JoinColumn(name = "enterprise_id", updatable = false)
     @IndexedEmbedded(includePaths = {"firstName.titles.title", "lastName.titles.title", "phones.phone"})
     public List<Person> getPersons() {
         return persons;
@@ -169,7 +169,7 @@ public class Enterprise implements Serializable {
     }
 
     @OneToMany
-    @JoinColumn(name = "enterprise_id")
+    @JoinColumn(name = "enterprise_id", updatable = false)
     @IndexedEmbedded(includePaths = {"product.titles.title"})
     public Set<EnterpriseProduct> getGoods() {
         return goods;
@@ -180,7 +180,7 @@ public class Enterprise implements Serializable {
     }
 
     @OneToMany
-    @JoinColumn(name = "enterprise_id")
+    @JoinColumn(name = "enterprise_id", updatable = false)
     @IndexedEmbedded(includePaths = {"title", "appendix.titles.title"})
     public List<EnterpriseTitle> getTitles() {
         return titles;
@@ -191,7 +191,7 @@ public class Enterprise implements Serializable {
     }
 
     @OneToMany
-    @JoinColumn(name = "enterprise_id")
+    @JoinColumn(name = "enterprise_id", updatable = false)
     @IndexedEmbedded(includePaths = {"email"})
     public List<Email> getEmails() {
         return emails;
@@ -202,7 +202,7 @@ public class Enterprise implements Serializable {
     }
 
     @OneToMany
-    @JoinColumn(name = "enterprise_id")
+    @JoinColumn(name = "enterprise_id", updatable = false)
     @IndexedEmbedded
     public List<Location> getLocations() {
         return locations;
@@ -231,7 +231,7 @@ public class Enterprise implements Serializable {
     }
 
     @OneToMany
-    @JoinColumn(name = "enterprise_id")
+    @JoinColumn(name = "enterprise_id", updatable = false)
     @IndexedEmbedded(includePaths = {"url"})
     public List<WWW> getUrls() {
         return urls;

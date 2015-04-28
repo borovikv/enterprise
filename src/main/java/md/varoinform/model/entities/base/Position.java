@@ -16,8 +16,8 @@ import java.util.List;
 @Table(name = DB.SCHEMA + DB.BASE + "position")
 public class Position extends TitleContainer<PositionTitle> {
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "position_id")
+    @OneToMany
+    @JoinColumn(name = "position_id", updatable = false)
     @IndexedEmbedded(includePaths = {"title"})
     public List<PositionTitle> getTitles() {
         return titles;

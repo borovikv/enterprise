@@ -36,18 +36,18 @@ public abstract class TitleContainer<T extends Title> {
 
     public void setTitles(List<T> titles) {
         this.titles = titles;
-        for (T title : titles) {
-            if (title == null) continue;
-            Language language = title.getLanguage();
-            String lang = language.getTitle();
-            String t = title.getTitle();
-            titleMap.put(lang, t);
-        }
     }
 
     public String title(String langTitle){
         String result = titleMap.get(langTitle);
         if (result != null) return result;
+        for (T title : titles) {
+            if (title.getLanguage().getTitle().equalsIgnoreCase(langTitle)){
+                String str = title.getTitle();
+                titleMap.put(langTitle, str);
+                return str;
+            }
+        }
         if (titles.size() > 0){
             return titles.get(0).getTitle();
         }

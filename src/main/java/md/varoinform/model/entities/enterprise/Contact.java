@@ -27,7 +27,7 @@ public class Contact {
     private Enterprise enterprise;
     private Department department;
     private Position position;
-    private List<Phone> phones = new ArrayList<>();
+    private Phone phone;
 //    private List<Phone> allPhones = new ArrayList<>();
 //    private List<Phone> fax = new ArrayList<>();
 //    private List<Phone> gsm = new ArrayList<>();
@@ -76,15 +76,15 @@ public class Contact {
         this.position = position;
     }
 
-    @ManyToOne(targetEntity = Phone.class)
+    @ManyToOne
     @JoinColumn(name = "phone_id")
     @IndexedEmbedded(includePaths = {"phone"})
-    public List<Phone> getPhones() {
-        return phones;
+    public Phone getPhones() {
+        return phone;
     }
 
-    public void setPhones(List<Phone> phones) {
-        this.phones = phones;
+    public void setPhones(Phone phone) {
+        this.phone = phone;
     }
 
 //    @ManyToOne

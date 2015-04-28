@@ -18,8 +18,8 @@ public class AddressNode extends TitleContainer<AddressNodeTitle> {
     private AddressNodeType type;
     private PostalCode code;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="node_id")
+    @OneToMany
+    @JoinColumn(name="node_id", updatable = false)
     @IndexedEmbedded(includePaths = {"title"})
     public List<AddressNodeTitle> getTitles() {
         return titles;
@@ -54,5 +54,10 @@ public class AddressNode extends TitleContainer<AddressNodeTitle> {
 
     public void setCode(PostalCode code) {
         this.code = code;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
     }
 }

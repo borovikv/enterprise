@@ -13,8 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = DB.SCHEMA + DB.BASE + "firstname")
 public class FirstName extends TitleContainer<FirstNameI18N> {
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "first_name_id")
+    @OneToMany
+    @JoinColumn(name = "first_name_id", updatable = false)
     @IndexedEmbedded(includePaths = {"title"})
     public List<FirstNameI18N> getTitles() {
         return titles;

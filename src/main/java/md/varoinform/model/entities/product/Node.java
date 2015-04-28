@@ -60,8 +60,8 @@ public class Node extends TitleContainer<NodeTitle> implements Serializable{
         return id.hashCode();
     }
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "node_id")
+    @OneToMany
+    @JoinColumn(name = "node_id", updatable = false)
     @IndexedEmbedded(includePaths = {"title"})
     public List<NodeTitle> getTitles() {
         return titles;
