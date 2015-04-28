@@ -11,7 +11,33 @@ import java.util.List;
  *
  */
 public class Synchronizer {
-    public void synchronize(Configuration from, Configuration to, Class aClass){
+    public static void synchronize(){
+        Configuration fromCfg = getFromConfiguration();
+        Configuration toCfg = getToConfiguration();
+
+        List<Class> classes = Configurator.getAnnotatedClass();
+        for (Class aClass : classes) {
+            System.out.println(aClass);
+            synchronizeClass(fromCfg, toCfg, aClass);
+        }
+        System.out.println("Synchronized");
+    }
+
+    private static Configuration getFromConfiguration() {
+        Configurator configurator = new Configurator("root", "vmdb");
+        configurator.mySqlConfiguraion();
+        return configurator.getCfg();
+    }
+
+    private static Configuration getToConfiguration() {
+        Configurator configurator = new Configurator("database/db", "admin", "test");
+        configurator.configureWithoutIndex();
+        configurator.showSql(true);
+        configurator.setAuto("create");
+        return configurator.getCfg();
+    }
+
+    public static void synchronizeClass(Configuration from, Configuration to, Class aClass){
         try (ClosableSession fromSession = new ClosableSession(from); ClosableSession toSession = new ClosableSession(to)) {
             try {
                 Transaction fromTransaction = fromSession.beginTransaction();
