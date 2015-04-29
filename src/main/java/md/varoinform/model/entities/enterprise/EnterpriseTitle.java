@@ -1,6 +1,7 @@
 package md.varoinform.model.entities.enterprise;
 
-import md.varoinform.model.entities.base.Language;
+import md.varoinform.model.entities.base.EnterpriseType;
+import md.varoinform.model.entities.base.EnterpriseTypeTitle;
 import md.varoinform.model.entities.base.TitleAppendix;
 import md.varoinform.model.utils.DB;
 import md.varoinform.model.utils.DefaultLanguages;
@@ -9,9 +10,7 @@ import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -93,7 +92,8 @@ public class EnterpriseTitle{
         for (DefaultLanguages language : DefaultLanguages.values()) {
             String curTitle;
             if (titleType.equalsIgnoreCase("DE JURE")){
-                curTitle = title + " " + enterprise.getEnterpriseType() + " " + appendix.title(language.getTitle());
+                EnterpriseType enterpriseType = enterprise.getEnterpriseType();
+                curTitle = title + " " + enterpriseType.title(language.getTitle()) + " " + appendix.title(language.getTitle());
             } else {
                 curTitle = title + " " + appendix.title(language.getTitle());
             }

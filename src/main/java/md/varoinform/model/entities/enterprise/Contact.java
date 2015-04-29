@@ -79,11 +79,11 @@ public class Contact {
     @ManyToOne
     @JoinColumn(name = "phone_id")
     @IndexedEmbedded(includePaths = {"phone"})
-    public Phone getPhones() {
+    public Phone getPhone() {
         return phone;
     }
 
-    public void setPhones(Phone phone) {
+    public void setPhone(Phone phone) {
         this.phone = phone;
     }
 

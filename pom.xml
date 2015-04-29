@@ -6,7 +6,7 @@
 
     <groupId>md.varoinform</groupId>
     <artifactId>enterprise</artifactId>
-    <version>0.1</version>
+    <version>1.0</version>
 
     <build>
         <plugins>

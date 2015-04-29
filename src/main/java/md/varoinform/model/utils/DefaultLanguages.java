@@ -21,7 +21,7 @@ public enum DefaultLanguages {
 
     public static DefaultLanguages getLanguageByTitle(String languageTitle) {
         for (DefaultLanguages language : DefaultLanguages.values()) {
-            if (languageTitle.startsWith(language.getTitle())) {
+            if (languageTitle.toLowerCase().startsWith(language.getTitle().toLowerCase())) {
                 return language;
             }
         }

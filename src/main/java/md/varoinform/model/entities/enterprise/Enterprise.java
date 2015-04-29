@@ -71,7 +71,7 @@ public class Enterprise implements Serializable {
     private List<Location> locations = new ArrayList<>();
     private List<Person> persons = new ArrayList<>();
     private List<Brand> brands = new ArrayList<>();
-    private Set<EnterpriseProduct> goods = new HashSet<>();
+    private Set<EnterpriseProduct> products = new HashSet<>();
     private List<EnterpriseTitle> titles = new ArrayList<>();
 
     @Id
@@ -171,12 +171,12 @@ public class Enterprise implements Serializable {
     @OneToMany
     @JoinColumn(name = "enterprise_id", updatable = false)
     @IndexedEmbedded(includePaths = {"product.titles.title"})
-    public Set<EnterpriseProduct> getGoods() {
-        return goods;
+    public Set<EnterpriseProduct> getProducts() {
+        return products;
     }
 
-    public void setGoods(Set<EnterpriseProduct> goods) {
-        this.goods = goods;
+    public void setProducts(Set<EnterpriseProduct> products) {
+        this.products = products;
     }
 
     @OneToMany
